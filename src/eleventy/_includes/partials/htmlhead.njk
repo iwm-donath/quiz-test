@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        html {
+            font-family: sans-serif;
+            line-height: 1.25;
+        }
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .grid > * {
+            flex: 1 1 16rem;
+            max-width: 100%;
+        }
+        .grid--margin {
+            margin-left: -1rem;
+            margin-right: -1rem;
+        }
+        .grid--margin > * {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .gauge-result-info {
+            align-items: center;
+            display: flex;
+            font-weight: bold;
+        }
+        .gauge-result-number {
+            flex: 1 1 auto;
+            padding-left: 0.1rem;
+        }
+        .gauge-result-bar {
+            height: 0.5em;
+            margin-right: 0.3em;
+        }
+
+        .gauge-result-container:nth-child(1) {
+            color: #FF4136;
+        }
+        .gauge-result-container:nth-child(1) .gauge-result-bar {
+            background-color: #FF4136;
+        }
+
+        .gauge-result-container:nth-child(2) {
+            color: #FF851B;
+        }
+        .gauge-result-container:nth-child(2) .gauge-result-bar {
+            background-color: #FF851B;
+        }
+
+        .gauge-result-container:nth-child(3) {
+            color: #2ECC40;
+        }
+        .gauge-result-container:nth-child(3) .gauge-result-bar {
+            background-color: #2ECC40;
+        }
+
+        .gauge-result-info--legend {
+            margin-top: 0.5rem;
+            margin-bottom: 2em;
+            display: grid;
+            grid-gap: 1em;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        .gauge-result-info--legend .gauge-result-container--legend {
+            display: flex;
+            align-items: center;
+        }
+        .gauge-result-info--legend .gauge-result-bar {
+            width: 0.5rem;
+            min-height: 0.5rem;
+        }
+    </style>
+</head>
+<body>

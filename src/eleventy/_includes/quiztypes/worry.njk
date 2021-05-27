@@ -1,0 +1,98 @@
+{% include "partials/htmlhead.njk" %}
+
+<main {% if not quiz.answer_page %}data-id="{{ quiz.title }}"{% endif %}>
+    {% if not quiz.answer_page %}
+        <p class="h5">{{ topline }}</p>
+            {% if quiz.title %}
+                <h1 class="h4">
+                    {{ quiz.title | markdownifyinline | safe }}
+                </h1>
+            {% endif %}
+        <div class="worry">
+            <a href="{{ pagination.href.next }}" class="btn-worry btn-worry--red" data-survey="{{ quiz.survey_results.great_worries }}">
+                <div>
+                    <p>Great worries</p>
+                </div>
+            </a>
+            <a href="{{ pagination.href.next }}" class="btn-worry btn-worry--yellow" data-survey="{{ quiz.survey_results.some_worries }}">
+                <div>
+                    <p>Some worries</p>
+                </div>
+            </a>
+            <a href="{{ pagination.href.next }}" class="btn-worry btn-worry--green" data-survey="{{ quiz.survey_results.no_worries }}">
+                <div>
+                    <p>No worries</p>
+                </div>
+            </a>
+        </div>
+        <div class="flex-center worry-progress">
+            {% for item in pagination.pages %}
+                {% if not item.answer %}
+                    <div{% if pagination.pageNumber == loop.index0 %} class="worry-progress--filled"{% endif %}></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="grid grid--margin">
+            <div>
+                <p class="h5">{{ topline }}</p>
+                {% if quiz.same_as_survey %}
+                    <h1 class="h4" id="same_as_survey_few" style="display: none">{{ quiz.same_as_survey.few | markdownifyinline | safe }}</h1>
+                    <h1 class="h4" id="same_as_survey_some" style="display: none">{{ quiz.same_as_survey.some | markdownifyinline | safe }}</h1>
+                    <h1 class="h4" id="same_as_survey_many" style="display: none">{{ quiz.same_as_survey.many | markdownifyinline | safe }}</h1>
+                {% endif %}
+            </div>
+            <div class="gauge-result">
+                <h2 class="h4"><strong>I worry about ...</strong></h2>
+                <div class="gauge-result-info worry-result-info gauge-result-info--legend">
+                    <div class="gauge-result-container worry-result-container gauge-result-container--legend"
+                        style="grid-column: 1">
+                        <div class="gauge-result-bar worry-result-bar selected" style="background-color: white"></div>
+                        <p class="small" style="color: black">Your selection</p>
+                    </div>
+                    <div class="gauge-result-container worry-result-container gauge-result-container--legend"
+                        style="grid-column: 1">
+                        <div class="gauge-result-bar worry-result-bar" style="background-color: #FF4136"></div>
+                        <p class="small" style="color: #FF4136">Great worries</p>
+                    </div>
+                    <div class="gauge-result-container worry-result-container gauge-result-container--legend"
+                        style="grid-column: 2">
+                        <div class="gauge-result-bar worry-result-bar" style="background-color: #FF851B"></div>
+                        <p class="small" style="color: #FF851B">Some worries</p>
+                    </div>
+                    <div class="gauge-result-container worry-result-container gauge-result-container--legend"
+                        style="grid-column: 3">
+                        <div class="gauge-result-bar worry-result-bar" style="background-color: #2ECC40"></div>
+                        <p class="small" style="color: #2ECC40">No worries</p>
+                    </div>
+                </div>
+                {% for item in pagination.pages | sortByGreatestWorries %}
+                    {% if not item.answer_page %}
+                        <p class="small">{% if item.answer_site_title %}{{ item.answer_site_title | markdownifyinline | safe }} {% else %} {{ item.title | markdownifyinline | safe }} {% endif %}</p>
+                        <div class="gauge-result-info worry-result-info" data-id="{{ item.title }}">
+                            <div class="gauge-result-container worry-result-container" style="flex: 1 1 {{ item.survey_results.great_worries }}%">
+                                <div class="gauge-result-bar worry-result-bar"></div>
+                                <div class="gauge-result-number">{{ item.survey_results.great_worries | toLocaleString }}%</div>
+                            </div>
+                            <div class="gauge-result-container worry-result-container" style="flex: 1 1 {{ item.survey_results.some_worries }}%">
+                                <div class="gauge-result-bar worry-result-bar"></div>
+                                <div class="gauge-result-number">{{ item.survey_results.some_worries | toLocaleString }}%</div>
+                            </div>
+                            <div class="gauge-result-container worry-result-container" style="flex: 1 1 {{ item.survey_results.no_worries }}%">
+                                <div class="gauge-result-bar worry-result-bar"></div>
+                                <div class="gauge-result-number">{{ item.survey_results.no_worries | toLocaleString }}%</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</main>
+
+{% if not quiz.answer_page %}
+    <script src="/assets/js/worry.js" async></script>
+{% else %}
+    <script src="/assets/js/worry-result.js" async></script>
+{% endif %}
+{% include "partials/htmlfoot.njk" %}

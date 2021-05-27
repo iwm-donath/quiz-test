@@ -1,0 +1,27 @@
+{
+  "name": "quiz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "eleventy",
+    "dev": "eleventy --serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:iwm-donath/quiz-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "devDependencies": {
+    "@11ty/eleventy": "^0.12.1"
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}
