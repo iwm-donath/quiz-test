@@ -27,7 +27,7 @@
         </div>
         <div class="flex-center worry-progress">
             {% for item in pagination.pages %}
-                {% if not item.answer %}
+                {% if not item.answer_page %}
                     <div{% if pagination.pageNumber == loop.index0 %} class="worry-progress--filled"{% endif %}></div>
                 {% endif %}
             {% endfor %}
